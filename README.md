@@ -1,72 +1,130 @@
 # Delivery Accumulation Scanner
 
-A powerful tool designed to detect **Institutional Accumulation** in NSE stocks by analyzing delivery percentage, volume spikes, and price stability.
+This project is a stock market scanner designed to identify accumulation patterns in NSE stocks. It consists of a Node.js/Express backend, a Next.js frontend, and Python scripts for data ingestion.
 
-## 🚀 Overview
+## Prerequisites
 
-The **Delivery Accumulation Scanner** helps traders identify stocks that are being quietly accumulated by big players before a potential price breakout. It filters stocks based on:
-*   High Delivery Percentage (Real buying)
-*   Abnormal Volume Spikes (Interest)
-*   Low Price Volatility (Accumulation within a range)
+-   **Node.js**: v18+ installed.
+-   **Python**: v3.8+ installed.
+-   **PostgreSQL**: A database instance (Supabase is used in this project).
 
-This tool is built with **Python**, **Streamlit**, and **SQLite**.
+## 1. Setup & Installation
 
-## ✨ Key Features
-
-*   **Accumulation Detection**: specific algorithms to find high delivery + volume with low price movement.
-*   **Historical Analysis**: Uses a local SQLite database to compute volume averages and compare against history.
-*   **Interactive Dashboard**: A clean, web-based UI built with Streamlit to run scans and view results.
-*   **Customizable Filters**: Adjust Minimum Delivery %, Volume Multiplier, and Price Move thresholds on the fly.
-*   **Scoring System**: Ranks stocks based on the strength of the accumulation signal.
-
-## 📂 Project Structure
-
-*   `app.py`: The main entry point for the Streamlit application. Handles the UI and user interaction.
-*   `scanner.py`: Contains the core logic for the scanner engine, filtering, and scoring algorithms.
-*   `database.py`: Manages SQLite database connections, table creation, and data retrieval (daily equity data).
-*   `market_data.db`: The local SQLite database storing historical price and delivery data.
-
-## 🛠️ Installation & Setup
-
-### Prerequisites
-*   Python 3.8 or higher
-*   pip (Python package manager)
-
-### Steps
-
-1.  **Clone the repository** (or download the source code):
+### Backend
+1.  Navigate to the backend folder:
     ```bash
-    git clone <repository-url>
-    cd <repository-directory>
+    cd backend
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Set up environment variables:
+    -   Create a `.env` file in `backend/` (see `backend/.env.example` if available).
+    -   Required variables:
+        ```env
+        DATABASE_URL="postgresql://user:password@host:port/database"
+        JWT_SECRET="your_secret_key"
+        PORT=3001
+        ```
+4.  Generate Prisma Client:
+    ```bash
+    npx prisma generate
     ```
 
-2.  **Install dependencies**:
+### Frontend
+1.  Navigate to the frontend folder:
     ```bash
-    pip install -r requirements.txt
+    cd frontend
     ```
-    *Note: If `requirements.txt` is missing, you will need `streamlit`, `pandas`, and `numpy`.*
-
-## 🖥️ Usage
-
-1.  **Run the Application**:
+2.  Install dependencies:
     ```bash
-    streamlit run app.py
+    npm install
+    ```
+3.  Set up environment variables:
+    -   Create a `.env.local` file in `frontend/`.
+    -   Required variables:
+        ```env
+        NEXT_PUBLIC_RAZORPAY_KEY_ID="your_razorpay_key"
+        ```
+
+### Python (Data Ingestion)
+1.  Navigate to the python folder:
+    ```bash
+    cd python
+    ```
+2.  Create a virtual environment (optional but recommended):
+    ```bash
+    python -m venv venv
+    # Windows:
+    .\venv\Scripts\activate
+    # Mac/Linux:
+    source venv/bin/activate
+    ```
+3.  Install dependencies:
+    ```bash
+    pip install pandas psycopg2-binary requests python-dotenv
     ```
 
-2.  **Using the Scanner**:
-    *   The app will check for existing data in `market_data.db`.
-    *   **Select Trade Date**: Choose the date you want to analyze from the sidebar.
-    *   **Adjust Settings**:
-        *   **Min Delivery %**: Minimum percentage of volume that resulted in delivery (default: 35%).
-        *   **Volume Spike**: How many times the current volume is higher than average (default: 2.0x).
-        *   **Max Price Move %**: Maximum absolute price change allowed (default: 1.5%).
-    *   **Run Scan**: Click the "Run Scan" button to see the results.
+---
 
-3.  **Data Ingestion** (Important):
-    *   This scanner relies on historical NSE data (CM-UDiFF Bhavcopy and Security Delivery Data).
-    *   Ensure your `market_data.db` is populated. The `database.py` file contains an `insert_daily_data` function that is designed to work with data ingestion scripts (not fully detailed here, but expected to be part of your data pipeline).
+## 2. Running the Application
 
-## ⚠️ Disclaimer
+You need to run the backend and frontend in separate terminals.
 
-**This tool is for informational and analytical purposes only.**
-It does not constitute investment advice or trading recommendations. The creator is not a SEBI-registered investment advisor. Users are solely responsible for their own trading decisions.
+**Terminal 1: Start Backend**
+```bash
+cd backend
+npm run dev
+```
+*Server runs on http://localhost:3001*
+
+**Terminal 2: Start Frontend**
+```bash
+cd frontend
+npm run dev
+```
+*Website runs on http://localhost:3000*
+
+**Terminal 3: Python Workers (Optional)**
+This is essential if you want the "Run Scanner" button on the website to trigger scanner logic.
+*(Note: The backend currently triggers scanner logic via python script execution, so just ensuring the environment is set up is enough. The backend will call `python worker.py` automatically.)*
+
+---
+
+## 3. Adding New Data (Data Ingestion)
+
+To populate the database with new market data, you have two options using the scripts in the `python/` folder.
+
+### Option A: Automatic Download & Ingest (Recommended)
+
+This script downloads Bhavcopies and Delivery reports separately from NSE, merges them, and saves them to the database.
+
+1.  Open `python/auto_ingest.py`.
+2.  Update the `start_date` and `end_date` in the `main()` function to the range you want to ingest:
+    ```python
+    start_date = datetime(2024, 1, 1) # Set your start date
+    end_date = datetime.now()         # Set your end date
+    ```
+3.  Run the script:
+    ```bash
+    cd python
+    python auto_ingest.py
+    ```
+
+### Option B: Manual Single File Ingest
+
+If you have a combined CSV file (containing Symbol, Date, OHLC, Volume, Delivery Data), you can ingest it manually.
+
+1.  Run the script pointing to your CSV file:
+    ```bash
+    cd python
+    python ingest_daily.py "path/to/your/file.csv"
+    ```
+
+### How Data Flow Works
+1.  **Ingestion**: Python scripts (`auto_ingest.py`) fetch raw data and save it to the `raw_market_data` table.
+2.  **Scanning**: When a user clicks "Run Scanner" on the website:
+    -   The Backend API calls `python/worker.py`.
+    -   `worker.py` reads from `raw_market_data`, calculates metrics (Volume Spike, Delivery %), filters based on logic, and saves results to `scanner_results` table.
+3.  **Viewing**: The Frontend fetches processed data from `scanner_results` table.

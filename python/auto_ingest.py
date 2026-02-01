@@ -6,7 +6,7 @@ import time
 from datetime import datetime, timedelta
 
 from ingestion import parse_and_merge
-from database_vinay import insert_daily_data, init_db
+from database import insert_daily_data, init_db
 
 # --------------------------------------------------
 # CONFIG
