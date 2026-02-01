@@ -1,0 +1,106 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+model RawMarketData {
+  trade_date    DateTime @db.Date
+  symbol        String
+  open          Decimal
+  high          Decimal
+  low           Decimal
+  close         Decimal
+  prev_close    Decimal?
+  volume        BigInt
+  delivery_qty  BigInt?
+  delivery_pct  Decimal?
+  is_fno        Boolean  @default(false)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  @@id([trade_date, symbol])
+  @@map("raw_market_data")
+}
+
+model ScannerResults {
+  trade_date        DateTime @db.Date
+  symbol            String
+  close             Decimal
+  price_change_pct  Decimal
+  volume            BigInt
+  avg_volume        Decimal
+  volume_multiplier Decimal
+  delivery_percent  Decimal
+  score             Decimal
+  signal_tag        String?
+  is_fno            Boolean  @default(false)
+  created_at        DateTime @default(now())
+
+  @@unique([trade_date, symbol])
+  @@index([trade_date])
+  @@index([score])
+  @@map("scanner_results")
+}
+
+model ScannerRuns {
+  run_date      DateTime @id @db.Date
+  status        String   // running, completed, failed
+  started_at    DateTime @default(now())
+  completed_at  DateTime?
+  error_message String?
+
+  @@map("scanner_runs")
+}
+
+model User {
+  id                 String   @id @default(uuid())
+  email              String   @unique
+  password_hash      String
+  stripe_customer_id String?
+  created_at         DateTime @default(now())
+  
+  subscription       Subscription?
+  payments           Payment[]
+
+  @@map("users")
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum SubscriptionPlan {
+  PRO
+  FREE
+}
+
+model Subscription {
+  id          String   @id @default(uuid())
+  user_id     String   @unique
+  user        User     @relation(fields: [user_id], references: [id])
+  plan        SubscriptionPlan @default(FREE)
+  status      SubscriptionStatus @default(INACTIVE)
+  starts_at   DateTime @default(now())
+  ends_at     DateTime?
+
+  @@map("subscriptions")
+}
+
+model Payment {
+  id                  String   @id @default(uuid())
+  user_id             String
+  user                User     @relation(fields: [user_id], references: [id])
+  razorpay_order_id   String   @unique
+  razorpay_payment_id String?
+  amount              Decimal
+  currency            String
+  status              String
+  created_at          DateTime @default(now())
+
+  @@map("payments")
+}
