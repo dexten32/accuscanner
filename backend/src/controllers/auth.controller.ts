@@ -48,11 +48,13 @@ export const register = async (req: Request, res: Response) => {
             { expiresIn: '1d' }
         );
 
+        const isProduction = process.env.NODE_ENV === 'production';
+
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'none',
-            domain: ".accuscan.co.in",
+            secure: isProduction,
+            sameSite: isProduction ? 'none' : 'lax',
+            domain: isProduction ? ".accuscan.co.in" : undefined,
             maxAge: 86400000 // 1 day
         });
 
@@ -89,11 +91,13 @@ export const login = async (req: Request, res: Response) => {
             { expiresIn: '1d' }
         );
 
+        const isProduction = process.env.NODE_ENV === 'production';
+
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'none',
-            domain: ".accuscan.co.in",
+            secure: isProduction,
+            sameSite: isProduction ? 'none' : 'lax', // Lax for local dev
+            domain: isProduction ? ".accuscan.co.in" : undefined, // Undefined for localhost
             maxAge: 86400000
         });
 

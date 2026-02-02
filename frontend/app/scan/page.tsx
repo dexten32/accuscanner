@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Navbar } from "../../components/Navbar";
 import { RangeSlider } from "../../components/ui/RangeSlider";
-import { Calendar, Search, Filter, Play, RefreshCw, AlertCircle, ChevronLeft, ChevronRight } from "lucide-react";
+import { Calendar, Search, Filter, Play, RefreshCw, AlertCircle, ChevronLeft, ChevronRight, X, Info } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { API_BASE } from "@/lib/config";
 
@@ -23,6 +23,7 @@ export default function ScannerPage() {
     // State
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
+    const [showInterpretation, setShowInterpretation] = useState(true);
 
     useEffect(() => {
         // Authenticate user before showing anything
@@ -328,9 +329,9 @@ export default function ScannerPage() {
                     {/* Header Block */}
                     <div className="space-y-4">
                         <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-transparent">
-                            Delivery Accumulation Scanner
+                            Scanner
                         </h1>
-                        <h2 className="text-xl md:text-2xl font-semibold text-emerald-400">
+                        {/* <h2 className="text-xl md:text-2xl font-semibold text-emerald-400">
                             See accumulation before the move
                         </h2>
                         <div className="text-zinc-400 max-w-3xl space-y-4 leading-relaxed">
@@ -342,8 +343,41 @@ export default function ScannerPage() {
                                 We identify NSE stocks showing abnormal volume and high delivery activity without price expansion
                                 a common signature of accumulation. The output helps traders focus on stocks worth deeper chart analysis.
                             </p>
-                        </div>
+                        </div> */}
                     </div>
+
+                    {/* Interpretation Block */}
+                    {showInterpretation && (
+                        <div className="mb-6 p-5 rounded-xl border border-blue-500/20 bg-blue-950/20 relative">
+                            <div className="absolute top-3 right-3">
+                                <button
+                                    onClick={() => setShowInterpretation(false)}
+                                    className="text-zinc-500 hover:text-white transition-colors p-1 hover:bg-white/10 rounded"
+                                >
+                                    <X size={16} />
+                                </button>
+                            </div>
+                            <div className="flex gap-4 items-start">
+                                <div className="mt-1 p-2 rounded-lg bg-blue-500/20">
+                                    <Info className="w-5 h-5 text-blue-400" />
+                                </div>
+                                <div className="space-y-3 flex-1">
+                                    <h3 className="text-blue-400 font-bold text-sm uppercase tracking-wider">How to Read Results</h3>
+                                    <p className="text-zinc-300 text-sm leading-relaxed">
+                                        Showing stocks with high delivery and volume participation while price remains relatively stable (Potential Accumulation Phase).
+                                    </p>
+                                    <div className="text-xs text-blue-200/80 bg-blue-950/40 p-3 rounded-lg border border-blue-500/20">
+                                        <span className="text-blue-300 font-bold">Score Formula:</span> (Delivery% × 1) + (VolumeSpike × 10)
+                                        <br />
+                                        <span className="opacity-75">Higher score indicates stronger participation relative to recent averages.</span>
+                                    </div>
+                                    <div className="text-xs text-amber-200/80 bg-amber-950/20 p-3 rounded-lg border border-amber-500/20">
+                                        <span className="text-amber-400 font-bold">⚠️ Important:</span> This is NOT investment advice or buy/sell recommendation. High delivery & volume does not guarantee future price movement.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                     {/* Stats Block */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
