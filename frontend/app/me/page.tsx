@@ -4,6 +4,7 @@ import { Navbar } from "../../components/Navbar";
 import { User, Shield, CreditCard, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { API_BASE } from "@/lib/config";
 
 import { BillingModal } from "../../components/BillingModal";
 
@@ -16,7 +17,7 @@ export default function ProfilePage() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await fetch('http://localhost:3001/me', { credentials: 'include' });
+                const res = await fetch(`${API_BASE}/me`, { credentials: 'include' });
                 if (!res.ok) {
                     console.error(`Fetch failed: ${res.status} ${res.statusText}`);
                     const text = await res.text();
@@ -55,7 +56,7 @@ export default function ProfilePage() {
 
         try {
             // 1. Create Order
-            const orderRes = await fetch('http://localhost:3001/payment/order', {
+            const orderRes = await fetch(`${API_BASE}/payment/order`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'
@@ -74,7 +75,7 @@ export default function ProfilePage() {
                 order_id: order.id,
                 handler: async function (response: any) {
                     // 3. Verify Payment
-                    const verifyRes = await fetch('http://localhost:3001/payment/verify', {
+                    const verifyRes = await fetch(`${API_BASE}/payment/verify`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({

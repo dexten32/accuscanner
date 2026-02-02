@@ -3,6 +3,7 @@ import Link from "next/link";
 import { BarChart3, LogOut, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { API_BASE } from "@/lib/config";
 
 export const Navbar = () => {
     const [user, setUser] = useState<any>(null);
@@ -16,7 +17,7 @@ export const Navbar = () => {
             try {
                 // Use localhost URL directly or a proper env var in real app
                 // We need credentials execution
-                const res = await fetch('http://localhost:3001/me', {
+                const res = await fetch(`${API_BASE}/me`, {
                     credentials: 'include'
                 });
                 const data = await res.json();
@@ -30,7 +31,7 @@ export const Navbar = () => {
 
     const handleLogout = async () => {
         try {
-            await fetch('http://localhost:3001/auth/logout', { method: 'POST', credentials: 'include' });
+            await fetch(`${API_BASE}/auth/logout`, { method: 'POST', credentials: 'include' });
             setUser(null);
             router.push('/login');
         } catch (e) {

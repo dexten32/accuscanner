@@ -4,6 +4,7 @@ import { Navbar } from "../../components/Navbar";
 import { RangeSlider } from "../../components/ui/RangeSlider";
 import { Calendar, Search, Filter, Play, RefreshCw, AlertCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { API_BASE } from "@/lib/config";
 
 interface ScanResult {
     symbol: string;
@@ -27,7 +28,7 @@ export default function ScannerPage() {
         // Authenticate user before showing anything
         const checkAuth = async () => {
             try {
-                const res = await fetch('http://localhost:3001/me', { credentials: 'include' });
+                const res = await fetch(`${API_BASE}/me`, { credentials: 'include' });
                 const data = await res.json();
                 if (!data.user) {
                     router.push('/login');
@@ -56,7 +57,8 @@ export default function ScannerPage() {
     const [isFnO, setIsFnO] = useState<'all' | 'true' | 'false'>('false');
 
     // API Base URL (Proxy should be set up or CORS enabled)
-    const API_URL = "http://localhost:3001/scanner";
+    // API Base URL (Proxy should be set up or CORS enabled)
+    const API_URL = `${API_BASE}/scanner`;
 
     // Fetch available dates on mount
     useEffect(() => {
@@ -192,9 +194,11 @@ export default function ScannerPage() {
 
     return (
         <div className="min-h-screen bg-black text-white font-sans">
-            <div className="fixed inset-0 bg-[url('/noise.svg')] opacity-[0.03] pointer-events-none z-0"></div>
+            <div
+                className="fixed inset-0 opacity-[0.03] pointer-events-none z-0"
+                style={{ backgroundImage: 'url(/noise.svg)' }}
+            ></div>
             <Navbar />
-
             <main className="pt-24 px-6 w-full flex flex-col md:flex-row gap-8 relative z-10 min-h-screen">
 
                 {/* Sidebar Filters - Sticky */}

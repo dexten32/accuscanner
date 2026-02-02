@@ -1,10 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { Navbar } from "@/components/Navbar";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from 'next/link';
+import { API_BASE } from "@/lib/config";
 
-export default function LoginPage() {
+function LoginContent() {
     const searchParams = useSearchParams();
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ export default function LoginPage() {
 
     useEffect(() => {
         const mode = searchParams.get('mode');
-        if (mode === 'signup') {
+        if (mode === 'register') {
             setIsLogin(false);
         }
     }, [searchParams]);
@@ -31,7 +32,7 @@ export default function LoginPage() {
 
         const endpoint = isLogin ? "/login" : "/register";
         try {
-            const res = await fetch(`http://localhost:3001/auth${endpoint}`, {
+            const res = await fetch(`${API_BASE}/auth${endpoint}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
@@ -148,5 +149,13 @@ export default function LoginPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <LoginContent />
+        </Suspense>
     );
 }

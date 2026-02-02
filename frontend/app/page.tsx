@@ -73,7 +73,10 @@ const Hero = () => {
                 <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-emerald-500/10 blur-[120px] mix-blend-screen animate-blob" />
                 <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-600/10 blur-[120px] mix-blend-screen animate-blob animation-delay-2000" />
                 <div className="absolute top-[40%] left-[30%] w-[30%] h-[30%] rounded-full bg-purple-500/10 blur-[100px] mix-blend-screen animate-blob animation-delay-4000" />
-                <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.04] mix-blend-overlay"></div>
+                <div
+                    className="absolute inset-0 opacity-[0.04] mix-blend-overlay"
+                    style={{ backgroundImage: 'url(/noise.svg)' }}
+                ></div>
                 <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black pointer-events-none"></div>
             </div>
 
@@ -158,7 +161,10 @@ const Hero = () => {
                         <span className="text-xs text-blue-400 font-bold bg-blue-500/10 px-2 py-1 rounded">Accumulating</span>
                     </div>
                     <div className="h-20 w-full bg-gradient-to-t from-blue-500/10 via-blue-500/5 to-transparent rounded-lg border border-blue-500/20 relative overflow-hidden">
-                        <div className="absolute bottom-0 left-0 right-0 h-full w-full bg-[url('/noise.svg')] opacity-10"></div>
+                        <div
+                            className="absolute bottom-0 left-0 right-0 h-full w-full opacity-10"
+                            style={{ backgroundImage: 'url(/noise.svg)' }}
+                        ></div>
                     </div>
                 </div>
             </motion.div>

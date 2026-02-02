@@ -6,6 +6,8 @@ import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
+
+
 export const register = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
@@ -49,7 +51,8 @@ export const register = async (req: Request, res: Response) => {
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: 'none',
+            domain: ".accuscan.co.in",
             maxAge: 86400000 // 1 day
         });
 
@@ -89,7 +92,8 @@ export const login = async (req: Request, res: Response) => {
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: 'none',
+            domain: ".accuscan.co.in",
             maxAge: 86400000
         });
 
