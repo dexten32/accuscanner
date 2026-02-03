@@ -11,6 +11,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 export const register = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
+        console.log("[Backend] Register Request for:", email);
 
         if (!email || !password) {
             res.status(400).json({ error: 'Email and password required' });
@@ -18,7 +19,10 @@ export const register = async (req: Request, res: Response) => {
         }
 
         const existingUser = await prisma.user.findUnique({ where: { email } });
+        console.log("[Backend] Existing user found?", existingUser ? "YES" : "NO", existingUser?.id);
+
         if (existingUser) {
+            console.log("[Backend] Returning 409 Conflict");
             res.status(409).json({ error: 'User already exists' });
             return;
         }

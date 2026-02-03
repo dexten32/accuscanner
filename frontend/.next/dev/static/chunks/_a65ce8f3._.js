@@ -13,6 +13,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/user.js [app-client] (ecmascript) <export default as User>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$AuthContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/context/AuthContext.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
@@ -20,46 +21,15 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+;
 const Navbar = ()=>{
     _s();
-    const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const { user, logout } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$AuthContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"])();
     const [userDropdownOpen, setUserDropdownOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
-    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "Navbar.useEffect": ()=>{
-            // Simple check if user is logged in via /me endpoint
-            const checkUser = {
-                "Navbar.useEffect.checkUser": async ()=>{
-                    try {
-                        // Use localhost URL directly or a proper env var in real app
-                        // We need credentials execution
-                        const res = await fetch('http://localhost:3001/me', {
-                            credentials: 'include'
-                        });
-                        const data = await res.json();
-                        setUser(data.user);
-                    } catch (e) {
-                        setUser(null);
-                    }
-                }
-            }["Navbar.useEffect.checkUser"];
-            checkUser();
-        }
-    }["Navbar.useEffect"], [
-        pathname
-    ]);
     const handleLogout = async ()=>{
-        try {
-            await fetch('http://localhost:3001/auth/logout', {
-                method: 'POST',
-                credentials: 'include'
-            });
-            setUser(null);
-            router.push('/login');
-        } catch (e) {
-            console.error(e);
-        }
+        await logout();
+        setUserDropdownOpen(false);
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
         className: "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-md bg-black/20 border-b border-white/5",
@@ -77,12 +47,12 @@ const Navbar = ()=>{
                                     className: "text-white w-6 h-6"
                                 }, void 0, false, {
                                     fileName: "[project]/components/Navbar.tsx",
-                                    lineNumber: 47,
+                                    lineNumber: 24,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/components/Navbar.tsx",
-                                lineNumber: 46,
+                                lineNumber: 23,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -90,23 +60,23 @@ const Navbar = ()=>{
                                 children: "AccuScan"
                             }, void 0, false, {
                                 fileName: "[project]/components/Navbar.tsx",
-                                lineNumber: 49,
+                                lineNumber: 26,
                                 columnNumber: 25
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/Navbar.tsx",
-                        lineNumber: 45,
+                        lineNumber: 22,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/components/Navbar.tsx",
-                    lineNumber: 44,
+                    lineNumber: 21,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/components/Navbar.tsx",
-                lineNumber: 43,
+                lineNumber: 20,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             pathname !== '/scan' && pathname !== '/me' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -118,7 +88,7 @@ const Navbar = ()=>{
                         children: "How it Works"
                     }, void 0, false, {
                         fileName: "[project]/components/Navbar.tsx",
-                        lineNumber: 55,
+                        lineNumber: 32,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -127,13 +97,13 @@ const Navbar = ()=>{
                         children: "Disclaimer"
                     }, void 0, false, {
                         fileName: "[project]/components/Navbar.tsx",
-                        lineNumber: 56,
+                        lineNumber: 33,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/Navbar.tsx",
-                lineNumber: 54,
+                lineNumber: 31,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -147,12 +117,12 @@ const Navbar = ()=>{
                                 children: "Scanner"
                             }, void 0, false, {
                                 fileName: "[project]/components/Navbar.tsx",
-                                lineNumber: 65,
+                                lineNumber: 42,
                                 columnNumber: 33
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/components/Navbar.tsx",
-                            lineNumber: 64,
+                            lineNumber: 41,
                             columnNumber: 29
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -165,12 +135,12 @@ const Navbar = ()=>{
                                         className: "w-5 h-5 text-zinc-300"
                                     }, void 0, false, {
                                         fileName: "[project]/components/Navbar.tsx",
-                                        lineNumber: 75,
+                                        lineNumber: 52,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/components/Navbar.tsx",
-                                    lineNumber: 71,
+                                    lineNumber: 48,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 userDropdownOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -184,7 +154,7 @@ const Navbar = ()=>{
                                                     children: user.email
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/Navbar.tsx",
-                                                    lineNumber: 81,
+                                                    lineNumber: 58,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -195,13 +165,13 @@ const Navbar = ()=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/Navbar.tsx",
-                                                    lineNumber: 82,
+                                                    lineNumber: 59,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/Navbar.tsx",
-                                            lineNumber: 80,
+                                            lineNumber: 57,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -211,7 +181,7 @@ const Navbar = ()=>{
                                             children: "Profile"
                                         }, void 0, false, {
                                             fileName: "[project]/components/Navbar.tsx",
-                                            lineNumber: 84,
+                                            lineNumber: 61,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -222,26 +192,26 @@ const Navbar = ()=>{
                                                     className: "w-4 h-4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/Navbar.tsx",
-                                                    lineNumber: 95,
+                                                    lineNumber: 72,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 "Logout"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/Navbar.tsx",
-                                            lineNumber: 91,
+                                            lineNumber: 68,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/Navbar.tsx",
-                                    lineNumber: 79,
+                                    lineNumber: 56,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/Navbar.tsx",
-                            lineNumber: 70,
+                            lineNumber: 47,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
@@ -255,12 +225,12 @@ const Navbar = ()=>{
                                 children: "Login"
                             }, void 0, false, {
                                 fileName: "[project]/components/Navbar.tsx",
-                                lineNumber: 105,
+                                lineNumber: 82,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/components/Navbar.tsx",
-                            lineNumber: 104,
+                            lineNumber: 81,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -270,36 +240,36 @@ const Navbar = ()=>{
                                 children: "Sign Up"
                             }, void 0, false, {
                                 fileName: "[project]/components/Navbar.tsx",
-                                lineNumber: 110,
+                                lineNumber: 87,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/components/Navbar.tsx",
-                            lineNumber: 109,
+                            lineNumber: 86,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/Navbar.tsx",
-                    lineNumber: 103,
+                    lineNumber: 80,
                     columnNumber: 21
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/components/Navbar.tsx",
-                lineNumber: 59,
+                lineNumber: 36,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/components/Navbar.tsx",
-        lineNumber: 42,
+        lineNumber: 19,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(Navbar, "BNcx7ICcrbarECEX8R77KEJBvI0=", false, function() {
+_s(Navbar, "PkekZjb/T4vbZTfoa/Gl/DuBCDM=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$AuthContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"]
     ];
 });
 _c = Navbar;
@@ -422,10 +392,16 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-alert.js [app-client] (ecmascript) <export default as AlertCircle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronLeft$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-left.js [app-client] (ecmascript) <export default as ChevronLeft>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-right.js [app-client] (ecmascript) <export default as ChevronRight>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$info$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Info$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/info.js [app-client] (ecmascript) <export default as Info>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$config$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/config.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$AuthContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/context/AuthContext.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
+;
 ;
 ;
 ;
@@ -436,27 +412,17 @@ function ScannerPage() {
     // State
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    const { user, loading: authLoading } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$AuthContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"])();
+    const [showInterpretation, setShowInterpretation] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ScannerPage.useEffect": ()=>{
-            // Authenticate user before showing anything
-            const checkAuth = {
-                "ScannerPage.useEffect.checkAuth": async ()=>{
-                    try {
-                        const res = await fetch('http://localhost:3001/me', {
-                            credentials: 'include'
-                        });
-                        const data = await res.json();
-                        if (!data.user) {
-                            router.push('/login');
-                        }
-                    } catch (e) {
-                        router.push('/login');
-                    }
-                }
-            }["ScannerPage.useEffect.checkAuth"];
-            checkAuth();
+            if (!authLoading && !user) {
+                router.push('/login');
+            }
         }
     }["ScannerPage.useEffect"], [
+        user,
+        authLoading,
         router
     ]);
     const [date, setDate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
@@ -483,7 +449,8 @@ function ScannerPage() {
     ]);
     const [isFnO, setIsFnO] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('false');
     // API Base URL (Proxy should be set up or CORS enabled)
-    const API_URL = "http://localhost:3001/scanner";
+    // API Base URL (Proxy should be set up or CORS enabled)
+    const API_URL = `${__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$config$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["API_BASE"]}/scanner`;
     // Fetch available dates on mount
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ScannerPage.useEffect": ()=>{
@@ -630,15 +597,18 @@ function ScannerPage() {
         className: "min-h-screen bg-black text-white font-sans",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed inset-0 bg-[url('/noise.svg')] opacity-[0.03] pointer-events-none z-0"
+                className: "fixed inset-0 opacity-[0.03] pointer-events-none z-0",
+                style: {
+                    backgroundImage: 'url(/noise.svg)'
+                }
             }, void 0, false, {
                 fileName: "[project]/app/scan/page.tsx",
-                lineNumber: 195,
+                lineNumber: 190,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$Navbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Navbar"], {}, void 0, false, {
                 fileName: "[project]/app/scan/page.tsx",
-                lineNumber: 196,
+                lineNumber: 194,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -656,14 +626,14 @@ function ScannerPage() {
                                                 className: "w-5 h-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 204,
+                                                lineNumber: 201,
                                                 columnNumber: 29
                                             }, this),
                                             " Config"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 203,
+                                        lineNumber: 200,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -674,7 +644,7 @@ function ScannerPage() {
                                                 children: "Trading Date"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 210,
+                                                lineNumber: 207,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -684,7 +654,7 @@ function ScannerPage() {
                                                         className: "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-500"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/scan/page.tsx",
-                                                        lineNumber: 212,
+                                                        lineNumber: 209,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -697,7 +667,7 @@ function ScannerPage() {
                                                                 children: "Loading dates..."
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/scan/page.tsx",
-                                                                lineNumber: 218,
+                                                                lineNumber: 215,
                                                                 columnNumber: 69
                                                             }, this),
                                                             availableDates.map((d)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -706,13 +676,13 @@ function ScannerPage() {
                                                                     children: d
                                                                 }, d, false, {
                                                                     fileName: "[project]/app/scan/page.tsx",
-                                                                    lineNumber: 220,
+                                                                    lineNumber: 217,
                                                                     columnNumber: 41
                                                                 }, this))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/scan/page.tsx",
-                                                        lineNumber: 213,
+                                                        lineNumber: 210,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -729,23 +699,23 @@ function ScannerPage() {
                                                                 d: "M19 9l-7 7-7-7"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/scan/page.tsx",
-                                                                lineNumber: 228,
+                                                                lineNumber: 225,
                                                                 columnNumber: 41
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/scan/page.tsx",
-                                                            lineNumber: 227,
+                                                            lineNumber: 224,
                                                             columnNumber: 37
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/scan/page.tsx",
-                                                        lineNumber: 226,
+                                                        lineNumber: 223,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 211,
+                                                lineNumber: 208,
                                                 columnNumber: 29
                                             }, this),
                                             availableDates.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -756,7 +726,7 @@ function ScannerPage() {
                                                         children: "No dates found. Please ingest data."
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/scan/page.tsx",
-                                                        lineNumber: 235,
+                                                        lineNumber: 232,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
@@ -764,7 +734,7 @@ function ScannerPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 209,
+                                        lineNumber: 206,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -778,14 +748,14 @@ function ScannerPage() {
                                                     className: "w-5 h-5 animate-spin"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/scan/page.tsx",
-                                                    lineNumber: 252,
+                                                    lineNumber: 249,
                                                     columnNumber: 37
                                                 }, this),
                                                 " Running..."
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/scan/page.tsx",
-                                            lineNumber: 251,
+                                            lineNumber: 248,
                                             columnNumber: 33
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             className: "flex items-center justify-center gap-2",
@@ -794,25 +764,25 @@ function ScannerPage() {
                                                     className: "w-5 h-5 fill-current"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/scan/page.tsx",
-                                                    lineNumber: 256,
+                                                    lineNumber: 253,
                                                     columnNumber: 37
                                                 }, this),
                                                 " Run Scanner"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/scan/page.tsx",
-                                            lineNumber: 255,
+                                            lineNumber: 252,
                                             columnNumber: 33
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 242,
+                                        lineNumber: 239,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/scan/page.tsx",
-                                lineNumber: 202,
+                                lineNumber: 199,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -826,7 +796,7 @@ function ScannerPage() {
                                                 children: "Delivery %"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 265,
+                                                lineNumber: 262,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$RangeSlider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["RangeSlider"], {
@@ -837,13 +807,13 @@ function ScannerPage() {
                                                 formatLabel: (v)=>`${v}%`
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 266,
+                                                lineNumber: 263,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 264,
+                                        lineNumber: 261,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -854,7 +824,7 @@ function ScannerPage() {
                                                 children: "Volume Spike"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 275,
+                                                lineNumber: 272,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$RangeSlider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["RangeSlider"], {
@@ -866,13 +836,13 @@ function ScannerPage() {
                                                 formatLabel: (v)=>`${v}x`
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 276,
+                                                lineNumber: 273,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 274,
+                                        lineNumber: 271,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -883,7 +853,7 @@ function ScannerPage() {
                                                 children: "Price Change"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 285,
+                                                lineNumber: 282,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$RangeSlider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["RangeSlider"], {
@@ -895,13 +865,13 @@ function ScannerPage() {
                                                 formatLabel: (v)=>`${v}%`
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 286,
+                                                lineNumber: 283,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 284,
+                                        lineNumber: 281,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -912,7 +882,7 @@ function ScannerPage() {
                                                 children: "Is F&O?"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 295,
+                                                lineNumber: 292,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -924,7 +894,7 @@ function ScannerPage() {
                                                         children: "Yes"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/scan/page.tsx",
-                                                        lineNumber: 297,
+                                                        lineNumber: 294,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -933,31 +903,31 @@ function ScannerPage() {
                                                         children: "No"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/scan/page.tsx",
-                                                        lineNumber: 306,
+                                                        lineNumber: 303,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 296,
+                                                lineNumber: 293,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 294,
+                                        lineNumber: 291,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/scan/page.tsx",
-                                lineNumber: 262,
+                                lineNumber: 259,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/scan/page.tsx",
-                        lineNumber: 201,
+                        lineNumber: 198,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -965,51 +935,146 @@ function ScannerPage() {
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "space-y-4",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                                    className: "text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-transparent",
+                                    children: "Scanner"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/scan/page.tsx",
+                                    lineNumber: 323,
+                                    columnNumber: 25
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/scan/page.tsx",
+                                lineNumber: 322,
+                                columnNumber: 21
+                            }, this),
+                            showInterpretation && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "mb-6 p-5 rounded-xl border border-blue-500/20 bg-blue-950/20 relative",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                        className: "text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-transparent",
-                                        children: "Delivery Accumulation Scanner"
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "absolute top-3 right-3",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>setShowInterpretation(false),
+                                            className: "text-zinc-500 hover:text-white transition-colors p-1 hover:bg-white/10 rounded",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                                                size: 16
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/scan/page.tsx",
+                                                lineNumber: 349,
+                                                columnNumber: 37
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/scan/page.tsx",
+                                            lineNumber: 345,
+                                            columnNumber: 33
+                                        }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 326,
-                                        columnNumber: 25
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                        className: "text-xl md:text-2xl font-semibold text-emerald-400",
-                                        children: "See accumulation before the move"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 329,
-                                        columnNumber: 25
+                                        lineNumber: 344,
+                                        columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "text-zinc-400 max-w-3xl space-y-4 leading-relaxed",
+                                        className: "flex gap-4 items-start",
                                         children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                children: "Our tool highlights stocks showing heavy delivery-based buying without significant price expansion. These patterns often appear before base formation and trend reversals."
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "mt-1 p-2 rounded-lg bg-blue-500/20",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$info$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Info$3e$__["Info"], {
+                                                    className: "w-5 h-5 text-blue-400"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/scan/page.tsx",
+                                                    lineNumber: 354,
+                                                    columnNumber: 37
+                                                }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 333,
-                                                columnNumber: 29
+                                                lineNumber: 353,
+                                                columnNumber: 33
                                             }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                children: "We identify NSE stocks showing abnormal volume and high delivery activity without price expansion a common signature of accumulation. The output helps traders focus on stocks worth deeper chart analysis."
-                                            }, void 0, false, {
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "space-y-3 flex-1",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                        className: "text-blue-400 font-bold text-sm uppercase tracking-wider",
+                                                        children: "How to Read Results"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/scan/page.tsx",
+                                                        lineNumber: 357,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                        className: "text-zinc-300 text-sm leading-relaxed",
+                                                        children: "Showing stocks with high delivery and volume participation while price remains relatively stable (Potential Accumulation Phase)."
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/scan/page.tsx",
+                                                        lineNumber: 358,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "text-xs text-blue-200/80 bg-blue-950/40 p-3 rounded-lg border border-blue-500/20",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                className: "text-blue-300 font-bold",
+                                                                children: "Score Formula:"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/scan/page.tsx",
+                                                                lineNumber: 362,
+                                                                columnNumber: 41
+                                                            }, this),
+                                                            " (Delivery% × 1) + (VolumeSpike × 10)",
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
+                                                                fileName: "[project]/app/scan/page.tsx",
+                                                                lineNumber: 363,
+                                                                columnNumber: 41
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                className: "opacity-75",
+                                                                children: "Higher score indicates stronger participation relative to recent averages."
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/scan/page.tsx",
+                                                                lineNumber: 364,
+                                                                columnNumber: 41
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/scan/page.tsx",
+                                                        lineNumber: 361,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "text-xs text-amber-200/80 bg-amber-950/20 p-3 rounded-lg border border-amber-500/20",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                className: "text-amber-400 font-bold",
+                                                                children: "⚠️ Important:"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/scan/page.tsx",
+                                                                lineNumber: 367,
+                                                                columnNumber: 41
+                                                            }, this),
+                                                            " This is NOT investment advice or buy/sell recommendation. High delivery & volume does not guarantee future price movement."
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/app/scan/page.tsx",
+                                                        lineNumber: 366,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 337,
-                                                columnNumber: 29
+                                                lineNumber: 356,
+                                                columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 332,
-                                        columnNumber: 25
+                                        lineNumber: 352,
+                                        columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/scan/page.tsx",
-                                lineNumber: 325,
-                                columnNumber: 21
+                                lineNumber: 343,
+                                columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "grid grid-cols-1 md:grid-cols-3 gap-4",
@@ -1026,13 +1091,13 @@ function ScannerPage() {
                                                         children: date
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/scan/page.tsx",
-                                                        lineNumber: 347,
+                                                        lineNumber: 377,
                                                         columnNumber: 85
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 347,
+                                                lineNumber: 377,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1040,7 +1105,7 @@ function ScannerPage() {
                                                 children: results.length
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 348,
+                                                lineNumber: 378,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1048,13 +1113,13 @@ function ScannerPage() {
                                                 children: "Signals Found"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 349,
+                                                lineNumber: 379,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 346,
+                                        lineNumber: 376,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1065,7 +1130,7 @@ function ScannerPage() {
                                                 children: "Hidden"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 352,
+                                                lineNumber: 382,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1073,7 +1138,7 @@ function ScannerPage() {
                                                 children: results.filter((r)=>r.signal_tag === 'Strong Accumulation').length
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 353,
+                                                lineNumber: 383,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1081,13 +1146,13 @@ function ScannerPage() {
                                                 children: "Strong Signals"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 356,
+                                                lineNumber: 386,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 351,
+                                        lineNumber: 381,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1098,7 +1163,7 @@ function ScannerPage() {
                                                 children: "Hidden"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 359,
+                                                lineNumber: 389,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1106,7 +1171,7 @@ function ScannerPage() {
                                                 children: results.length > 0 ? results[0].symbol : '-'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 360,
+                                                lineNumber: 390,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1114,19 +1179,19 @@ function ScannerPage() {
                                                 children: "Top Result"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 363,
+                                                lineNumber: 393,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 358,
+                                        lineNumber: 388,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/scan/page.tsx",
-                                lineNumber: 345,
+                                lineNumber: 375,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1140,7 +1205,7 @@ function ScannerPage() {
                                                 children: "Scanner Results"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 370,
+                                                lineNumber: 400,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1151,13 +1216,13 @@ function ScannerPage() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 371,
+                                                lineNumber: 401,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 369,
+                                        lineNumber: 399,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1169,20 +1234,20 @@ function ScannerPage() {
                                                     className: "w-10 h-10 animate-spin opacity-50"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/scan/page.tsx",
-                                                    lineNumber: 378,
+                                                    lineNumber: 408,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                     children: "Analyzing market data..."
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/scan/page.tsx",
-                                                    lineNumber: 379,
+                                                    lineNumber: 409,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/scan/page.tsx",
-                                            lineNumber: 377,
+                                            lineNumber: 407,
                                             columnNumber: 33
                                         }, this) : results.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "h-full flex flex-col items-center justify-center text-zinc-600 space-y-4",
@@ -1191,20 +1256,20 @@ function ScannerPage() {
                                                     className: "w-12 h-12 opacity-20"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/scan/page.tsx",
-                                                    lineNumber: 383,
+                                                    lineNumber: 413,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                     children: "No results found for these criteria."
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/scan/page.tsx",
-                                                    lineNumber: 384,
+                                                    lineNumber: 414,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/scan/page.tsx",
-                                            lineNumber: 382,
+                                            lineNumber: 412,
                                             columnNumber: 33
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
                                             className: "w-full text-left border-collapse min-w-[1200px]",
@@ -1218,7 +1283,7 @@ function ScannerPage() {
                                                                 children: "Symbol"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/scan/page.tsx",
-                                                                lineNumber: 390,
+                                                                lineNumber: 420,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1226,7 +1291,7 @@ function ScannerPage() {
                                                                 children: "Close"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/scan/page.tsx",
-                                                                lineNumber: 391,
+                                                                lineNumber: 421,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1234,7 +1299,7 @@ function ScannerPage() {
                                                                 children: "Price Chg %"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/scan/page.tsx",
-                                                                lineNumber: 392,
+                                                                lineNumber: 422,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1242,7 +1307,7 @@ function ScannerPage() {
                                                                 children: "Volume"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/scan/page.tsx",
-                                                                lineNumber: 393,
+                                                                lineNumber: 423,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1250,7 +1315,7 @@ function ScannerPage() {
                                                                 children: "Avg Volume"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/scan/page.tsx",
-                                                                lineNumber: 394,
+                                                                lineNumber: 424,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1258,7 +1323,7 @@ function ScannerPage() {
                                                                 children: "Vol Spike"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/scan/page.tsx",
-                                                                lineNumber: 395,
+                                                                lineNumber: 425,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1266,7 +1331,7 @@ function ScannerPage() {
                                                                 children: "Del %"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/scan/page.tsx",
-                                                                lineNumber: 396,
+                                                                lineNumber: 426,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1274,7 +1339,7 @@ function ScannerPage() {
                                                                 children: "Signal Tag"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/scan/page.tsx",
-                                                                lineNumber: 397,
+                                                                lineNumber: 427,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1282,7 +1347,7 @@ function ScannerPage() {
                                                                 children: "F&O"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/scan/page.tsx",
-                                                                lineNumber: 398,
+                                                                lineNumber: 428,
                                                                 columnNumber: 45
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1290,18 +1355,18 @@ function ScannerPage() {
                                                                 children: "Score"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/scan/page.tsx",
-                                                                lineNumber: 399,
+                                                                lineNumber: 429,
                                                                 columnNumber: 45
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/scan/page.tsx",
-                                                        lineNumber: 389,
+                                                        lineNumber: 419,
                                                         columnNumber: 41
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/scan/page.tsx",
-                                                    lineNumber: 388,
+                                                    lineNumber: 418,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1314,7 +1379,7 @@ function ScannerPage() {
                                                                     children: row.symbol
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/scan/page.tsx",
-                                                                    lineNumber: 405,
+                                                                    lineNumber: 435,
                                                                     columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1322,7 +1387,7 @@ function ScannerPage() {
                                                                     children: Number(row.close).toFixed(2)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/scan/page.tsx",
-                                                                    lineNumber: 408,
+                                                                    lineNumber: 438,
                                                                     columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1334,7 +1399,7 @@ function ScannerPage() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/scan/page.tsx",
-                                                                    lineNumber: 411,
+                                                                    lineNumber: 441,
                                                                     columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1342,7 +1407,7 @@ function ScannerPage() {
                                                                     children: Number(row.volume).toLocaleString()
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/scan/page.tsx",
-                                                                    lineNumber: 414,
+                                                                    lineNumber: 444,
                                                                     columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1352,7 +1417,7 @@ function ScannerPage() {
                                                                     })
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/scan/page.tsx",
-                                                                    lineNumber: 417,
+                                                                    lineNumber: 447,
                                                                     columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1363,7 +1428,7 @@ function ScannerPage() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/scan/page.tsx",
-                                                                    lineNumber: 420,
+                                                                    lineNumber: 450,
                                                                     columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1374,7 +1439,7 @@ function ScannerPage() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/scan/page.tsx",
-                                                                    lineNumber: 423,
+                                                                    lineNumber: 453,
                                                                     columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1384,12 +1449,12 @@ function ScannerPage() {
                                                                         children: row.signal_tag || '-'
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/scan/page.tsx",
-                                                                        lineNumber: 427,
+                                                                        lineNumber: 457,
                                                                         columnNumber: 53
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/scan/page.tsx",
-                                                                    lineNumber: 426,
+                                                                    lineNumber: 456,
                                                                     columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1399,12 +1464,12 @@ function ScannerPage() {
                                                                         children: row.is_fno ? 'YES' : '-'
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/scan/page.tsx",
-                                                                        lineNumber: 435,
+                                                                        lineNumber: 465,
                                                                         columnNumber: 53
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/scan/page.tsx",
-                                                                    lineNumber: 434,
+                                                                    lineNumber: 464,
                                                                     columnNumber: 49
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1421,12 +1486,12 @@ function ScannerPage() {
                                                                                     }
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/scan/page.tsx",
-                                                                                    lineNumber: 445,
+                                                                                    lineNumber: 475,
                                                                                     columnNumber: 61
                                                                                 }, this)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/scan/page.tsx",
-                                                                                lineNumber: 444,
+                                                                                lineNumber: 474,
                                                                                 columnNumber: 57
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1434,40 +1499,40 @@ function ScannerPage() {
                                                                                 children: Number(row.score).toFixed(2)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/scan/page.tsx",
-                                                                                lineNumber: 450,
+                                                                                lineNumber: 480,
                                                                                 columnNumber: 57
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/scan/page.tsx",
-                                                                        lineNumber: 443,
+                                                                        lineNumber: 473,
                                                                         columnNumber: 53
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/scan/page.tsx",
-                                                                    lineNumber: 442,
+                                                                    lineNumber: 472,
                                                                     columnNumber: 49
                                                                 }, this)
                                                             ]
                                                         }, row.symbol, true, {
                                                             fileName: "[project]/app/scan/page.tsx",
-                                                            lineNumber: 404,
+                                                            lineNumber: 434,
                                                             columnNumber: 45
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/scan/page.tsx",
-                                                    lineNumber: 402,
+                                                    lineNumber: 432,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/scan/page.tsx",
-                                            lineNumber: 387,
+                                            lineNumber: 417,
                                             columnNumber: 33
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 375,
+                                        lineNumber: 405,
                                         columnNumber: 25
                                     }, this),
                                     results.length > itemsPerPage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1482,7 +1547,7 @@ function ScannerPage() {
                                                         children: indexOfFirstItem + 1
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/scan/page.tsx",
-                                                        lineNumber: 466,
+                                                        lineNumber: 496,
                                                         columnNumber: 45
                                                     }, this),
                                                     " to ",
@@ -1491,7 +1556,7 @@ function ScannerPage() {
                                                         children: Math.min(indexOfLastItem, results.length)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/scan/page.tsx",
-                                                        lineNumber: 466,
+                                                        lineNumber: 496,
                                                         columnNumber: 107
                                                     }, this),
                                                     " of ",
@@ -1500,13 +1565,13 @@ function ScannerPage() {
                                                         children: results.length
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/scan/page.tsx",
-                                                        lineNumber: 466,
+                                                        lineNumber: 496,
                                                         columnNumber: 190
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 465,
+                                                lineNumber: 495,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1520,12 +1585,12 @@ function ScannerPage() {
                                                             className: "w-5 h-5 text-zinc-400"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/scan/page.tsx",
-                                                            lineNumber: 474,
+                                                            lineNumber: 504,
                                                             columnNumber: 41
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/scan/page.tsx",
-                                                        lineNumber: 469,
+                                                        lineNumber: 499,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1538,7 +1603,7 @@ function ScannerPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/scan/page.tsx",
-                                                        lineNumber: 476,
+                                                        lineNumber: 506,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1549,30 +1614,30 @@ function ScannerPage() {
                                                             className: "w-5 h-5 text-zinc-400"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/scan/page.tsx",
-                                                            lineNumber: 484,
+                                                            lineNumber: 514,
                                                             columnNumber: 41
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/scan/page.tsx",
-                                                        lineNumber: 479,
+                                                        lineNumber: 509,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 468,
+                                                lineNumber: 498,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 464,
+                                        lineNumber: 494,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/scan/page.tsx",
-                                lineNumber: 368,
+                                lineNumber: 398,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
@@ -1585,65 +1650,66 @@ function ScannerPage() {
                                                 className: "w-5 h-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/scan/page.tsx",
-                                                lineNumber: 494,
+                                                lineNumber: 524,
                                                 columnNumber: 29
                                             }, this),
                                             " Disclaimer"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 493,
+                                        lineNumber: 523,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                         children: "This tool is intended for informational and analytical purposes only."
                                     }, void 0, false, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 496,
+                                        lineNumber: 526,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                         children: "It does not constitute investment advice, trading recommendations, or solicitation to buy or sell any securities."
                                     }, void 0, false, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 499,
+                                        lineNumber: 529,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                         children: "The creator is not a SEBI-registered investment advisor or research analyst, and users are solely responsible for their own trading and investment decisions."
                                     }, void 0, false, {
                                         fileName: "[project]/app/scan/page.tsx",
-                                        lineNumber: 502,
+                                        lineNumber: 532,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/scan/page.tsx",
-                                lineNumber: 492,
+                                lineNumber: 522,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/scan/page.tsx",
-                        lineNumber: 322,
+                        lineNumber: 319,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/scan/page.tsx",
-                lineNumber: 198,
+                lineNumber: 195,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/scan/page.tsx",
-        lineNumber: 194,
+        lineNumber: 189,
         columnNumber: 9
     }, this);
 }
-_s(ScannerPage, "ohxxK4ycE6c5ehU8rrjP7Vmyx68=", false, function() {
+_s(ScannerPage, "rgEAMru1cbcUuGLH82GojT/rtYg=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$AuthContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"]
     ];
 });
 _c = ScannerPage;

@@ -4,6 +4,7 @@ import { Navbar } from "@/components/Navbar";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from 'next/link';
 import { API_BASE } from "@/lib/config";
+import { useAuth } from "@/context/AuthContext";
 
 function LoginContent() {
     const searchParams = useSearchParams();
@@ -13,24 +14,31 @@ function LoginContent() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
     const router = useRouter();
+    const { user, login } = useAuth();
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-        const mode = searchParams.get('mode');
-        if (mode === 'register') {
-            setIsLogin(false);
+        if (user) {
+            router.push("/scan");
         }
-    }, [searchParams]);
+    }, [user, router]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (isSubmitting) return; // Prevent double submission
+
         setError("");
+        setIsSubmitting(true);
 
         if (!isLogin && password !== confirmPassword) {
             setError("Passwords do not match");
+            setIsSubmitting(false);
             return;
         }
 
         const endpoint = isLogin ? "/login" : "/register";
+        console.log(`[Frontend] Submitting to ${endpoint}`, { email, isLogin });
         try {
             const res = await fetch(`${API_BASE}/auth${endpoint}`, {
                 method: "POST",
@@ -43,13 +51,23 @@ function LoginContent() {
 
             if (!res.ok) {
                 setError(data.error || "An error occurred");
+                setIsSubmitting(false);
                 return;
             }
 
             // Redirect to scanner on success
-            router.push("/scan");
+            if (isLogin) {
+                // Update context state
+                // Re-fetch user to update context
+                window.location.href = '/scan'; // Force reload to ensure cookies are set and context is fresh
+            } else {
+                router.push("/login?state=created");
+                setIsLogin(true);
+                setIsSubmitting(false);
+            }
         } catch (err) {
             setError("Failed to connect to server");
+            setIsSubmitting(false);
         }
     };
 
@@ -140,9 +158,10 @@ function LoginContent() {
                         <div>
                             <button
                                 type="submit"
-                                className="flex w-full justify-center rounded-md bg-emerald-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+                                disabled={isSubmitting}
+                                className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 ${isSubmitting ? 'bg-emerald-500/50 cursor-not-allowed' : 'bg-emerald-500 hover:bg-emerald-400'}`}
                             >
-                                {isLogin ? "Sign in" : "Sign up"}
+                                {isSubmitting ? 'Processing...' : (isLogin ? "Sign in" : "Sign up")}
                             </button>
                         </div>
                     </form>

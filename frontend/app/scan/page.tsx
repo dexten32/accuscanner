@@ -5,6 +5,7 @@ import { RangeSlider } from "../../components/ui/RangeSlider";
 import { Calendar, Search, Filter, Play, RefreshCw, AlertCircle, ChevronLeft, ChevronRight, X, Info } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { API_BASE } from "@/lib/config";
+import { useAuth } from "@/context/AuthContext";
 
 interface ScanResult {
     symbol: string;
@@ -23,23 +24,14 @@ export default function ScannerPage() {
     // State
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
+    const { user, loading: authLoading } = useAuth();
     const [showInterpretation, setShowInterpretation] = useState(true);
 
     useEffect(() => {
-        // Authenticate user before showing anything
-        const checkAuth = async () => {
-            try {
-                const res = await fetch(`${API_BASE}/me`, { credentials: 'include' });
-                const data = await res.json();
-                if (!data.user) {
-                    router.push('/login');
-                }
-            } catch (e) {
-                router.push('/login');
-            }
-        };
-        checkAuth();
-    }, [router]);
+        if (!authLoading && !user) {
+            router.push('/login');
+        }
+    }, [user, authLoading, router]);
     const [date, setDate] = useState<string>('');
     const [availableDates, setAvailableDates] = useState<string[]>([]);
     const [status, setStatus] = useState<'idle' | 'running' | 'completed' | 'failed'>('idle');

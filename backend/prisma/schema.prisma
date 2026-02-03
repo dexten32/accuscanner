@@ -7,24 +7,6 @@ generator client {
   previewFeatures = ["driverAdapters"]
 }
 
-model RawMarketData {
-  trade_date    DateTime @db.Date
-  symbol        String
-  open          Decimal
-  high          Decimal
-  low           Decimal
-  close         Decimal
-  prev_close    Decimal?
-  volume        BigInt
-  delivery_qty  BigInt?
-  delivery_pct  Decimal?
-  is_fno        Boolean  @default(false)
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
-
-  @@id([trade_date, symbol])
-  @@map("raw_market_data")
-}
 
 model ScannerResults {
   trade_date        DateTime @db.Date

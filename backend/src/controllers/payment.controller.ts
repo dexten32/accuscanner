@@ -44,7 +44,12 @@ export const createOrder = async (req: Request, res: Response) => {
 
     } catch (error) {
         console.error("Error creating order:", error);
-        res.status(500).json({ error: "Something went wrong" });
+        // @ts-ignore
+        if (error.error && error.error.description) {
+            // @ts-ignore
+            console.error("Razorpay Error Description:", error.error.description);
+        }
+        res.status(500).json({ error: "Something went wrong creating order" });
     }
 };
 
@@ -118,3 +123,51 @@ export const verifyPayment = async (req: Request, res: Response) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 };
+
+export const mockPaymentSuccess = async (req: Request, res: Response) => {
+    try {
+        if (!req.user) {
+            res.status(401).json({ error: "Unauthorized" });
+            return;
+        }
+
+        const userId = req.user.userId;
+
+        // 1. Create Mock Payment Record
+        await prisma.payment.create({
+            data: {
+                user_id: userId,
+                razorpay_order_id: `mock_order_${Date.now()}`,
+                razorpay_payment_id: `mock_pay_${Date.now()}`,
+                amount: 4999,
+                currency: 'INR',
+                status: 'success'
+            } as any
+        });
+
+        // 2. Upgrade User Subscription
+        await prisma.subscription.upsert({
+            where: { user_id: userId },
+            update: {
+                plan: 'PRO',
+                status: 'ACTIVE',
+                starts_at: new Date(),
+                ends_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+            },
+            create: {
+                user: { connect: { id: userId } },
+                plan: 'PRO',
+                status: 'ACTIVE',
+                starts_at: new Date(),
+                ends_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+            }
+        });
+
+        res.json({ status: 'success', message: "Mock Payment Successful! Plan Upgraded." });
+
+    } catch (error) {
+        console.error("Mock Payment Error:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+

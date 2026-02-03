@@ -111,6 +111,8 @@ export const getResults = async (req: Request, res: Response) => {
             return;
         }
 
+        console.log(`[Backend] getResults called for date: ${date}, plan: ${req.user?.plan || 'Unknown'}`);
+
         // ... existing security checks ...
 
         // Defaults
@@ -184,7 +186,7 @@ export const getAvailableDates = async (req: Request, res: Response) => {
         } else {
             // 2. Refresh Cache
             console.log("[Cache] Miss or expired. Fetching from DB...");
-            const dates = await prisma.rawMarketData.findMany({
+            const dates = await prisma.scannerResults.findMany({
                 select: { trade_date: true },
                 distinct: ['trade_date'],
                 orderBy: { trade_date: 'desc' },
@@ -206,8 +208,23 @@ export const getAvailableDates = async (req: Request, res: Response) => {
         if (req.user) {
             const plan = req.user.plan;
             const limits = PLAN_LIMITS[plan] || PLAN_LIMITS['FREE'];
+
+            if (plan === 'FREE') {
+                // Delay Logic: Only show data older than 10 days
+                const today = new Date();
+                const cutoffDate = new Date(today);
+                cutoffDate.setDate(today.getDate() - 13);
+
+                // Filter dates that are OLDER or EQUAL to cutoff
+                // allDates are strings "YYYY-MM-DD"
+                const cutoffString = cutoffDate.toISOString().split('T')[0];
+
+                // Since allDates is sorted desc, we can just find the start index or filter
+                resultDates = allDates.filter(d => d <= cutoffString);
+            }
+
             if (limits.dateRangeDays !== null) {
-                resultDates = allDates.slice(0, limits.dateRangeDays);
+                resultDates = resultDates.slice(0, limits.dateRangeDays);
             }
         }
 

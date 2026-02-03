@@ -5,37 +5,20 @@ import { User, Shield, CreditCard, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { API_BASE } from "@/lib/config";
+import { useAuth } from "@/context/AuthContext";
 
 import { BillingModal } from "../../components/BillingModal";
 
 export default function ProfilePage() {
-    const [user, setUser] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
+    const { user, loading } = useAuth();
     const [isBillingModalOpen, setIsBillingModalOpen] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const res = await fetch(`${API_BASE}/me`, { credentials: 'include' });
-                if (!res.ok) {
-                    console.error(`Fetch failed: ${res.status} ${res.statusText}`);
-                    const text = await res.text();
-                    console.error(`Response body: ${text}`);
-                    throw new Error('Failed to fetch user');
-                }
-                const data = await res.json();
-                setUser(data.user);
-            } catch (error) {
-                console.error("Profile Fetch Error:", error);
-                // router.push('/login'); // Commented out for debugging
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchUser();
-    }, [router]);
+        if (!loading && !user) {
+            router.push('/login');
+        }
+    }, [user, loading, router]);
 
     const loadRazorpayScript = () => {
         return new Promise((resolve) => {
@@ -48,67 +31,7 @@ export default function ProfilePage() {
     };
 
     const handlePayment = async () => {
-        const res = await loadRazorpayScript();
-        if (!res) {
-            alert('Razorpay SDK failed to load. Are you online?');
-            return;
-        }
-
-        try {
-            // 1. Create Order
-            const orderRes = await fetch(`${API_BASE}/payment/order`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include'
-            });
-            const order = await orderRes.json();
-
-            if (!orderRes.ok) throw new Error(order.error || 'Order creation failed');
-
-            // 2. Open Razorpay
-            const options = {
-                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_placeholder', // Should specific in env
-                amount: order.amount,
-                currency: order.currency,
-                name: 'AccuScan Pro',
-                description: 'Upgrade to Professional Plan',
-                order_id: order.id,
-                handler: async function (response: any) {
-                    // 3. Verify Payment
-                    const verifyRes = await fetch(`${API_BASE}/payment/verify`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            razorpay_order_id: response.razorpay_order_id,
-                            razorpay_payment_id: response.razorpay_payment_id,
-                            razorpay_signature: response.razorpay_signature
-                        }),
-                        credentials: 'include'
-                    });
-
-                    const verifyData = await verifyRes.json();
-                    if (verifyRes.ok) {
-                        alert("Payment Successful! Plan Upgraded.");
-                        window.location.reload(); // Refresh to show new plan
-                    } else {
-                        alert("Verification Failed: " + verifyData.error);
-                    }
-                },
-                prefill: {
-                    email: user.email,
-                },
-                theme: {
-                    color: '#10b981' // Emerald-500
-                }
-            };
-
-            const paymentObject = new (window as any).Razorpay(options);
-            paymentObject.open();
-
-        } catch (error) {
-            console.error(error);
-            alert("Payment failed");
-        }
+        router.push('/payment');
     };
 
     if (loading) {

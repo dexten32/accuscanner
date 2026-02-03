@@ -1,42 +1,18 @@
 "use client";
 import Link from "next/link";
 import { BarChart3, LogOut, User } from "lucide-react";
-import { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { API_BASE } from "@/lib/config";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 export const Navbar = () => {
-    const [user, setUser] = useState<any>(null);
+    const { user, logout } = useAuth();
     const [userDropdownOpen, setUserDropdownOpen] = useState(false);
     const pathname = usePathname();
-    const router = useRouter();
-
-    useEffect(() => {
-        // Simple check if user is logged in via /me endpoint
-        const checkUser = async () => {
-            try {
-                // Use localhost URL directly or a proper env var in real app
-                // We need credentials execution
-                const res = await fetch(`${API_BASE}/me`, {
-                    credentials: 'include'
-                });
-                const data = await res.json();
-                setUser(data.user);
-            } catch (e) {
-                setUser(null);
-            }
-        };
-        checkUser();
-    }, [pathname]);
 
     const handleLogout = async () => {
-        try {
-            await fetch(`${API_BASE}/auth/logout`, { method: 'POST', credentials: 'include' });
-            setUser(null);
-            router.push('/login');
-        } catch (e) {
-            console.error(e);
-        }
+        await logout();
+        setUserDropdownOpen(false);
     };
 
     return (
