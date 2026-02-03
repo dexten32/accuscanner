@@ -47,8 +47,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     useEffect(() => {
+        // Skip fetching user state on the home page as requested
+        if (pathname === '/') {
+            setLoading(false);
+            return;
+        }
         fetchUser();
-    }, []);
+    }, [pathname]); // Depend on pathname to fetch when navigating away from home
 
     const login = (userData: User) => {
         setUser(userData);

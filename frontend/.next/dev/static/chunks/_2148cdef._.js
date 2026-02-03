@@ -59,9 +59,16 @@ const AuthProvider = ({ children })=>{
     };
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "AuthProvider.useEffect": ()=>{
+            // Skip fetching user state on the home page as requested
+            if (pathname === '/') {
+                setLoading(false);
+                return;
+            }
             fetchUser();
         }
-    }["AuthProvider.useEffect"], []);
+    }["AuthProvider.useEffect"], [
+        pathname
+    ]); // Depend on pathname to fetch when navigating away from home
     const login = (userData)=>{
         setUser(userData);
         router.push('/scan');
@@ -92,7 +99,7 @@ const AuthProvider = ({ children })=>{
         children: children
     }, void 0, false, {
         fileName: "[project]/context/AuthContext.tsx",
-        lineNumber: 73,
+        lineNumber: 78,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
